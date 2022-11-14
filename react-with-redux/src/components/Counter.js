@@ -1,5 +1,6 @@
 import classes from "./Counter.module.css";
 
+import { counterActions } from "../store/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const Counter = () => {
@@ -9,20 +10,18 @@ const Counter = () => {
   const visible = useSelector((state) => state.visible);
 
   const increaseHandler = () => {
-    dispatch({ type: "increase", amount: 5 });
+    dispatch(counterActions.increase(5));
   };
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
   };
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
   const toggleCounterHandler = () => {
-    dispatch({
-      type: "toggle",
-    });
+    dispatch(counterActions.toggle());
   };
 
   return (
