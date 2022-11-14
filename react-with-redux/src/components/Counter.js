@@ -1,13 +1,13 @@
 import classes from "./Counter.module.css";
 
-import { counterActions } from "../store/index";
+import { counterActions } from "../store/counter";
 import { useSelector, useDispatch } from "react-redux";
 
 const Counter = () => {
   const dispatch = useDispatch();
   // with useSelector automatic subscription to redux store
-  const counter = useSelector((state) => state.counter);
-  const visible = useSelector((state) => state.visible);
+  const counter = useSelector((state) => state.counter.counter);
+  const visible = useSelector((state) => state.counter.visible);
 
   const increaseHandler = () => {
     dispatch(counterActions.increase(5));
