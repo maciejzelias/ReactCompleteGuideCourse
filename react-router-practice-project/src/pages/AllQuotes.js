@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useHttp from "../hooks/use-http";
+import { getAllQuotes } from "../lib/api";
+import NoQuotesFound from "../components/quotes/NoQuotesFound";
 
 import QuoteList from "../components/quotes/QuoteList";
-const DUMMY_QUOTES = [
-  { id: "q1", author: "Maciej", text: "Learing react is awesome !" },
-  { id: "q2", author: "Maciek", text: "Learing react is grat !" },
-];
+import LoadingSpinner from "../components/UI/LoadingSpinner";
+
+
+// const DUMMY_QUOTES = [
+//   { id: "q1", author: "Maciej", text: "Learing react is awesome !" },
+//   { id: "q2", author: "Maciek", text: "Learing react is grat !" },
+// ];
 
 export default function AllQuotes() {
-  return <QuoteList quotes={DUMMY_QUOTES} />;
+  const {
+    sendRequest,
+    status,
+    data: loadedQuotes,
+    error,
+  } = useHttp(getAllQuotes, true);
+
+  useEffect(() => {
+    sendRequest();
+  }, [sendRequest]);
+
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p className="centered focused">{error}</p>;
+  }
+
+  if (status === "completed" && (!loadedQuotes || loadedQuotes.length === 0)) {
+    return <NoQuotesFound />;
+  }
+
+  return <QuoteList quotes={loadedQuotes} />;
 }
