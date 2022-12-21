@@ -31,26 +31,25 @@ class App extends Component {
           Toggle
         </button>
         <br />
-        <Transition in={this.state .showBlock} timeout={300}
-        mountOnEnter unmountOnExit>
+        <Transition
+          in={this.state.showBlock}
+          timeout={300}
+          mountOnEnter
+          unmountOnExit>
           {(state) => (
             <div
-            style= {{
-              backgroundColor: "red",
-              width: 100,
-              height: 100,
-              margin: "auto",
-              transition: "opacity 2s ease-out",
-              opacity: state === 'exiting' ? 0 : 1
-            }}></div>
+              style={{
+                backgroundColor: "red",
+                width: 100,
+                height: 100,
+                margin: "auto",
+                transition: "opacity 2s ease-out",
+                opacity: state === "exiting" ? 0 : 1,
+              }}></div>
           )}
         </Transition>
-        {this.state.modalIsOpen ? (
-          <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
-        ) : null}
-        {this.state.modalIsOpen ? (
-          <Backdrop show={this.state.modalIsOpen} />
-        ) : null}
+        <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
+        {this.state.modalIsOpen ? <Backdrop show /> : null}
         <button className="Button" onClick={this.showModal}>
           Open Modal
         </button>
